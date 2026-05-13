@@ -30,8 +30,8 @@ export class RuinsScene extends BaseScene {
     this.engine.camera.position.set(0, 0, 8);
     gsap.from(this.engine.camera.position, { z: 15, duration: 2, ease: 'power2.out' });
 
-    // Fog denso para la escena de ruinas
-    this.engine.scene.fog = new THREE.FogExp2(0x040810, 0.025);
+    // Fog ligero — deja ver los edificios
+    this.engine.scene.fog = new THREE.FogExp2(0x040810, 0.008);
   }
 
   // ─── Scene builders ────────────────────────────────────────────────────────
@@ -40,20 +40,20 @@ export class RuinsScene extends BaseScene {
     const buildingData = [
       // [x, y, z, width, height, color, emissive]
       // Capa lejana — edificios altos difusos
-      [-8,  1, -20, 1.5, 8, 0x0a1a2a, 0x001122],
-      [-5,  2, -20, 2.0, 6, 0x0a1520, 0x001520],
-      [-2, -1, -20, 1.2, 9, 0x081018, 0x000f1a],
-      [ 3,  0, -20, 1.8, 7, 0x0a1a28, 0x001828],
-      [ 6,  1, -20, 1.4, 5, 0x091520, 0x001520],
-      [ 9, -1, -20, 2.2, 8, 0x0a1a2a, 0x001122],
+      [-8,  1, -20, 1.5, 8, 0x0d2540, 0x0a3060],
+      [-5,  2, -20, 2.0, 6, 0x0d2035, 0x0a2850],
+      [-2, -1, -20, 1.2, 9, 0x0a1e30, 0x081a40],
+      [ 3,  0, -20, 1.8, 7, 0x0d2540, 0x0a2e55],
+      [ 6,  1, -20, 1.4, 5, 0x0b1e35, 0x092850],
+      [ 9, -1, -20, 2.2, 8, 0x0d2540, 0x0a3060],
 
       // Capa media — edificios semidestruidos
-      [-7, -0.5, -10, 1.0, 5, 0x0d1f30, 0x002035],
-      [-4,  0.5, -10, 0.8, 4, 0x0c1c2c, 0x001c35],
-      [-1, -1.0, -10, 1.2, 6, 0x0d2030, 0x002038],
-      [ 2,  0.0, -10, 0.9, 3, 0x0c1a28, 0x001a30],
-      [ 5, -0.5, -10, 1.1, 5, 0x0d2032, 0x002040],
-      [ 8,  0.5, -10, 1.3, 4, 0x0c1c30, 0x001c38],
+      [-7, -0.5, -10, 1.0, 5, 0x153050, 0x103570],
+      [-4,  0.5, -10, 0.8, 4, 0x122a48, 0x0e3068],
+      [-1, -1.0, -10, 1.2, 6, 0x153050, 0x103575],
+      [ 2,  0.0, -10, 0.9, 3, 0x122848, 0x0e2865],
+      [ 5, -0.5, -10, 1.1, 5, 0x153050, 0x103578],
+      [ 8,  0.5, -10, 1.3, 4, 0x122a48, 0x0e3068],
     ];
 
     for (const [x, y, z, w, h, col, emit] of buildingData) {
@@ -61,7 +61,7 @@ export class RuinsScene extends BaseScene {
       const mat = new THREE.MeshStandardMaterial({
         color:     col,
         emissive:  emit,
-        emissiveIntensity: 0.8,
+        emissiveIntensity: 3.5,
         roughness: 0.95,
         metalness: 0.1,
       });
@@ -93,12 +93,12 @@ export class RuinsScene extends BaseScene {
     const rows = Math.floor(height * 2);
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        if (Math.random() > 0.15) continue; // pocas ventanas encendidas
+        if (Math.random() > 0.25) continue; // más ventanas encendidas
         const geo = new THREE.PlaneGeometry(0.08, 0.12);
         const mat = new THREE.MeshBasicMaterial({
-          color: Math.random() > 0.7 ? 0xff6600 : 0x004466,
+          color: Math.random() > 0.6 ? 0xff8822 : 0x00aaff,
           transparent: true,
-          opacity: 0.4 + Math.random() * 0.4,
+          opacity: 0.75 + Math.random() * 0.25,
           blending: THREE.AdditiveBlending,
         });
         const win = new THREE.Mesh(geo, mat);
@@ -172,17 +172,22 @@ export class RuinsScene extends BaseScene {
   }
 
   _buildLights() {
-    // Luz ambiental muy tenue — mundo oscuro
-    const ambient = new THREE.AmbientLight(0x040810, 0.3);
+    // Luz ambiental — suficiente para revelar siluetas
+    const ambient = new THREE.AmbientLight(0x0a1828, 3.0);
     this._track(ambient);
 
     // Luz puntual azul-fría lejana (luna o reactor lejano)
-    const moonLight = new THREE.DirectionalLight(0x0055aa, 0.4);
+    const moonLight = new THREE.DirectionalLight(0x2266cc, 2.5);
     moonLight.position.set(-10, 8, -5);
     this._track(moonLight);
 
+    // Contraluz cian desde el fondo — da profundidad a los edificios
+    const backLight = new THREE.DirectionalLight(0x004466, 2.0);
+    backLight.position.set(0, 2, -30);
+    this._track(backLight);
+
     // Luz roja de emergencia — parpadeante
-    this._emergencyLight = new THREE.PointLight(0xff2200, 2, 8);
+    this._emergencyLight = new THREE.PointLight(0xff2200, 5, 15);
     this._emergencyLight.position.set(3, 1, -3);
     this._track(this._emergencyLight);
   }
