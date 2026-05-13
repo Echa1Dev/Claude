@@ -65,28 +65,24 @@ async function bootstrap() {
   setLoadingProgress(70, 'INITIALIZING SCROLL ENGINE...');
   await tick();
 
-  // 4. Sistema de scroll — 8000px de experiencia
+  // 4. Sistema de scroll — 3000px, más corto y accesible
   const scrollContainer = document.getElementById('scroll-container');
-  const scrollSystem    = new ScrollSystem(scrollContainer, 8000);
+  const scrollSystem    = new ScrollSystem(scrollContainer, 3000);
   scrollSystem.defineSections([
-    { name: 'boot',        start: 0.00, end: 0.15 },
-    { name: 'ruins_enter', start: 0.15, end: 0.40 },
-    { name: 'ruins_mid',   start: 0.40, end: 0.65 },
-    { name: 'ruins_exit',  start: 0.65, end: 0.85 },
-    { name: 'server_core', start: 0.85, end: 1.00 },
+    { name: 'ruins',       start: 0.00, end: 0.60 },
+    { name: 'server_core', start: 0.60, end: 1.00 },
   ]);
 
-  // Transición automática a ServerScene al llegar al final
+  // Transición al servidor al 60% del scroll
   eventBus.on(Events.SCROLL_SECTION, ({ name }) => {
     if (name === 'server_core') {
-      engine.sceneManager.switchTo('server');
-    } else if (name === 'ruins_enter' || name === 'ruins_mid' || name === 'ruins_exit') {
       const current = engine.sceneManager._current;
-      if (current?.name !== 'ruins') {
-        engine.sceneManager.switchTo('ruins');
-      }
+      if (current?.name !== 'server') engine.sceneManager.switchTo('server');
     }
   });
+
+  // Indicador de scroll visible
+  _buildScrollHint();
 
   setLoadingProgress(90, 'WARMING UP NEURAL PATHWAYS...');
   await tick();
@@ -110,6 +106,51 @@ async function bootstrap() {
     console.log('%c NEXUS-7 AWAKENING PROTOCOL', 'color:#00ffcc; font-size:14px; font-weight:bold;');
     console.log('%c Dev tools: window.__engine, __stateManager, __eventBus', 'color:#888');
   }
+}
+
+// Indicador visual de scroll con flecha animada
+function _buildScrollHint() {
+  const hint = document.createElement('div');
+  hint.id = 'scroll-hint';
+  hint.innerHTML = `
+    <div style="font-size:0.55rem;letter-spacing:0.25em;margin-bottom:8px;color:rgba(0,255,204,0.5)">SCROLL</div>
+    <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
+      <line x1="10" y1="0" x2="10" y2="20" stroke="rgba(0,255,204,0.5)" stroke-width="1"/>
+      <polyline points="4,14 10,22 16,14" stroke="rgba(0,255,204,0.5)" stroke-width="1" fill="none"/>
+    </svg>
+  `;
+  Object.assign(hint.style, {
+    position:    'fixed',
+    bottom:      '32px',
+    right:       '32px',
+    display:     'flex',
+    flexDirection:'column',
+    alignItems:  'center',
+    fontFamily:  'var(--font-mono)',
+    animation:   'scrollBounce 1.8s ease-in-out infinite',
+    opacity:     '0',
+    transition:  'opacity 1s',
+    zIndex:      '20',
+    pointerEvents:'none',
+  });
+  document.body.appendChild(hint);
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes scrollBounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(8px); }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Mostrar 2s después del boot y ocultar al llegar al 60%
+  setTimeout(() => { hint.style.opacity = '1'; }, 10000);
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (3000 - window.innerHeight);
+    if (pct > 0.55) hint.style.opacity = '0';
+    else if (pct > 0.05) hint.style.opacity = '1';
+  }, { passive: true });
 }
 
 // RAF-based tick para dar tiempo al navegador a pintar
