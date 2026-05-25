@@ -1,0 +1,185 @@
+#projects {
+  overflow: hidden;
+}
+
+.projects-header {
+  margin-bottom: var(--space-lg);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+/* ---- card base ---- */
+.card {
+  border: 2px solid var(--ink);
+  padding: var(--space-md);
+  position: relative;
+  overflow: hidden;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--cream);
+  color: var(--ink);
+  transition:
+    background var(--transition-fast),
+    color     var(--transition-fast);
+}
+
+.card:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.card:hover .tag {
+  border-color: var(--cream);
+  color: var(--cream);
+}
+
+.card:hover .card-year {
+  opacity: 0.4;
+}
+
+.card:hover .card-description {
+  opacity: 0.7;
+}
+
+.card:hover .card-link {
+  color: var(--cream);
+  border-bottom-color: var(--cream);
+}
+
+/* ---- featured card ---- */
+.card.featured {
+  grid-column: span 2;
+  min-height: 460px;
+}
+
+.card.featured .card-title {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+}
+
+/* ---- image background ---- */
+.card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity var(--transition-fast);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--cream);
+  opacity: 0.88;
+  transition: opacity var(--transition-mid), background var(--transition-fast);
+}
+
+.card:hover .card-overlay {
+  background: var(--ink);
+  opacity: 0.55;
+}
+
+/* ---- ghost placeholder (no image) ---- */
+.card-ghost {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  opacity: 0.06;
+  user-select: none;
+  overflow: hidden;
+  pointer-events: none;
+  line-height: 1;
+  text-align: center;
+  padding: var(--space-md);
+}
+
+/* ---- card layout ---- */
+.card-status {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  z-index: 3;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+}
+
+.card-year {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  transition: opacity var(--transition-fast);
+}
+
+.card-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: var(--space-xs);
+}
+
+.card-description {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  opacity: 0.75;
+  max-width: 560px;
+  margin-bottom: var(--space-sm);
+  transition: opacity var(--transition-fast);
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.card-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .card.featured {
+    grid-column: span 1;
+    min-height: 340px;
+  }
+}

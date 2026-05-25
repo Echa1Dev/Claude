@@ -1,0 +1,195 @@
+/* ----------------------------------------
+   CSS CUSTOM PROPERTIES
+---------------------------------------- */
+:root {
+  --cream: #F5F0E8;
+  --ink:   #0A0A0A;
+
+  --fs-display: clamp(4rem, 11vw, 10.5rem);
+  --fs-h1:      clamp(2rem, 5vw, 4rem);
+  --fs-h2:      clamp(1.25rem, 3vw, 2rem);
+  --fs-body:    1rem;
+  --fs-label:   0.6875rem;
+
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  2rem;
+  --space-lg:  4rem;
+  --space-xl:  7rem;
+  --space-2xl: 10rem;
+
+  --transition-fast: 0.15s ease;
+  --transition-mid:  0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ----------------------------------------
+   RESET
+---------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+/* ----------------------------------------
+   BASE
+---------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ----------------------------------------
+   SCROLLBAR
+---------------------------------------- */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--ink); }
+
+/* ----------------------------------------
+   TYPOGRAPHY
+---------------------------------------- */
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+p {
+  line-height: 1.75;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+/* ----------------------------------------
+   REVEAL ANIMATION
+---------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity  0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------------------
+   SHARED UTILITIES
+---------------------------------------- */
+.section-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-display);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  opacity: 0.06;
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.section-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-xs);
+}
+
+.section-title {
+  font-size: var(--fs-h1);
+  margin-bottom: var(--space-md);
+}
+
+.divider {
+  width: 100%;
+  height: 2px;
+  background: var(--ink);
+  flex-shrink: 0;
+}
+
+.tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 1px solid var(--ink);
+  padding: 2px 8px;
+  display: inline-block;
+  line-height: 1.6;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.btn-invert {
+  display: inline-block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 2px solid var(--ink);
+  padding: var(--space-xs) var(--space-md);
+  background: var(--cream);
+  color: var(--ink);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.btn-invert:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+/* ----------------------------------------
+   SECTIONS COMMON
+---------------------------------------- */
+section {
+  position: relative;
+  padding: var(--space-xl) var(--space-md);
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: var(--space-lg) var(--space-md);
+  }
+  .section-number {
+    font-size: clamp(3rem, 22vw, 6rem);
+  }
+}

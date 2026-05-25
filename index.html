@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Javier Echaide — 3D Artist & Indie Game Developer</title>
+  <meta name="description" content="Portfolio of Javier Echaide — 3D artist and indie game developer based in Pamplona, Spain. Blender, shading, lighting, and game development." />
+  <meta property="og:title" content="Javier Echaide — 3D Artist & Indie Game Developer" />
+  <meta property="og:description" content="3D work, lighting experiments, and the long road to making games from scratch." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/nav.css" />
+  <link rel="stylesheet" href="/css/hero.css" />
+  <link rel="stylesheet" href="/css/about.css" />
+  <link rel="stylesheet" href="/css/projects.css" />
+  <link rel="stylesheet" href="/css/skills.css" />
+  <link rel="stylesheet" href="/css/contact.css" />
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="#hero" class="nav-logo" aria-label="Home">echa1dev</a>
+    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <ul class="nav-links" role="list">
+      <li><a href="#about" aria-current="false">About</a></li>
+      <li><a href="#projects" aria-current="false">Projects</a></li>
+      <li><a href="#skills" aria-current="false">Skills</a></li>
+      <li><a href="#contact" aria-current="false">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-inner">
+      <h1 class="hero-name">
+        <span>JAVIER</span>
+        <span>ECHAIDE</span>
+      </h1>
+      <p class="hero-title">3D Artist &nbsp;·&nbsp; Indie Game Developer</p>
+      <p class="hero-bio">Based in Pamplona, Spain. Studying 3D animation and interactive environments, building toward making indie games from scratch. I work primarily in Blender — modeling, shading, lighting.</p>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">↓ scroll</div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="about">
+    <span class="section-number" aria-hidden="true">01</span>
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <p class="section-label">About</p>
+        <h2 class="section-title">Who I am.</h2>
+        <div class="about-text">
+          <p>Based in Pamplona, Spain. I'm currently studying Animación 3D, Juegos y Entornos Interactivos at Donapea — building on a background in systems administration and networking. My work lives at the intersection of 3D craft and game development. I spend most of my time in Blender, breaking and rebuilding things until they look right.</p>
+          <p>I also have hands-on experience in web development and video production from two professional internships, which means I think about the full pipeline, not just the artistic end.</p>
+        </div>
+        <blockquote class="about-statement">
+          <p>I want to make indie games — not just play them. From the first polygon to the final build, I want full authorship over the thing I'm making. Right now I'm learning everything I can, one project at a time, building the foundation for something bigger.</p>
+        </blockquote>
+      </div>
+      <div class="about-right reveal" data-delay="150">
+        <div class="about-initials" aria-hidden="true">JE</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="projects">
+    <span class="section-number" aria-hidden="true">02</span>
+    <div class="projects-header reveal">
+      <p class="section-label">Projects</p>
+      <h2 class="section-title">Selected work.</h2>
+    </div>
+    <div id="projects-grid" class="projects-grid"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="skills">
+    <span class="section-number" aria-hidden="true">03</span>
+    <div class="skills-header reveal">
+      <p class="section-label">Skills</p>
+      <h2 class="section-title">What I work with.</h2>
+    </div>
+    <div id="skills-grid" class="skills-grid"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="contact">
+    <span class="section-number" aria-hidden="true">04</span>
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let's talk.</h2>
+        <p class="contact-availability">Open to collaborations, projects, and opportunities in 3D and game development.</p>
+        <a href="/assets/cv.pdf" class="btn-invert" download>↓ Download CV</a>
+      </div>
+      <div class="contact-right reveal" data-delay="150">
+        <ul id="contact-links" class="contact-links" role="list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2025 Javier Echaide — echa1dev</span>
+    <span>Built with HTML, CSS &amp; JS</span>
+  </footer>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/nav.js" defer></script>
+  <script src="/js/hero.js" defer></script>
+  <script src="/js/about.js" defer></script>
+  <script src="/js/projects.js" defer></script>
+  <script src="/js/skills.js" defer></script>
+  <script src="/js/contact.js" defer></script>
+</body>
+</html>
