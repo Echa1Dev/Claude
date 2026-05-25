@@ -2,10 +2,10 @@ const projects = [
   {
     id: 'toon-car',
     title: 'Toon Car',
-    description: 'Cel-shaded vehicle render built in Blender. Custom shader nodes produce a hand-drawn outline effect with flat color regions. Full scene with road plane and scattered grass props.',
+    description: 'Cel-shaded vehicle render. Custom shader nodes produce hand-drawn outlines with flat color regions. Full scene with road and grass props.',
     tags: ['Blender', '3D Modeling', 'Toon Shading', 'Rendering'],
     year: '2025',
-    status: 'finished',
+    status: 'Finished',
     link: null,
     image: 'assets/img/toon-car.jpg',
     featured: true,
@@ -13,21 +13,21 @@ const projects = [
   {
     id: 'alarm-clock',
     title: 'Alarm Clock',
-    description: 'Classic alarm clock rendered with a pop-art aesthetic. Toon shading, halftone dot patterns, and strong ink outlines. Warm pink body against a teal ground — graphic novel panel feel.',
+    description: 'Pop-art alarm clock. Toon shading, halftone dot patterns, and strong ink outlines. Warm pink against teal — graphic novel panel feel.',
     tags: ['Blender', '3D Modeling', 'Toon Shading', 'Texturing'],
     year: '2025',
-    status: 'finished',
+    status: 'Finished',
     link: null,
     image: 'assets/img/alarm-clock.jpg',
     featured: true,
   },
   {
     id: 'lighting-study',
-    title: 'Lighting & Color Psychology',
-    description: 'Final exercise for CILA 2024/25. Two opposite emotional scenes — same character, same composition. One warm and cheerful, one cold and disturbing. All mood carried by light position, color temperature, and pupil texture modifications. No geometry changes.',
-    tags: ['Blender', 'Lighting', 'Color Theory', 'Rendering', 'Particle Systems'],
+    title: 'Lighting Study',
+    description: 'CILA Final — 2024/25. Same scene, two emotional extremes: warm/cheerful vs. cold/disturbing. All mood from light position, color temperature, and pupil texture edits. No geometry changes.',
+    tags: ['Blender', 'Lighting', 'Color Theory', 'Particle Systems'],
     year: '2025',
-    status: 'finished',
+    status: 'Finished',
     link: null,
     image: 'assets/img/lighting-study.jpg',
     featured: false,
@@ -35,42 +35,40 @@ const projects = [
   {
     id: 'school-website',
     title: 'School Website',
-    description: 'Official website for a school educational center, developed during FCT internship. Full design and development of the web presence from scratch.',
-    tags: ['Web Development', 'HTML', 'CSS'],
+    description: 'Official site for an educational center. Full design and development during FCT internship.',
+    tags: ['Web Dev', 'HTML', 'CSS'],
     year: '2024',
-    status: 'finished',
+    status: 'Finished',
     link: null,
     image: null,
     featured: false,
   },
 ];
 
-function statusLabel(status) {
-  const map = { finished: 'Finished', 'in-progress': 'In Progress', paused: 'Paused', concept: 'Concept' };
-  return map[status] || status;
-}
-
-function renderCard(p) {
-  const card = document.createElement('article');
-  card.className = `card reveal${p.featured ? ' featured' : ''}`;
+function buildCard(p) {
+  const el = document.createElement('article');
+  el.className = `card${p.featured ? ' featured' : ''}`;
 
   if (p.image) {
     const bg = document.createElement('div');
     bg.className = 'card-bg';
     bg.style.backgroundImage = `url('${p.image}')`;
-    card.appendChild(bg);
+    el.appendChild(bg);
+    const ov = document.createElement('div');
+    ov.className = 'card-overlay';
+    el.appendChild(ov);
   } else {
     const ghost = document.createElement('div');
     ghost.className = 'card-ghost';
     ghost.setAttribute('aria-hidden', 'true');
     ghost.textContent = p.title;
-    card.appendChild(ghost);
+    el.appendChild(ghost);
   }
 
   const status = document.createElement('span');
-  status.className = 'card-status tag';
-  status.textContent = statusLabel(p.status);
-  card.appendChild(status);
+  status.className = 'card-status';
+  status.textContent = p.status;
+  el.appendChild(status);
 
   const content = document.createElement('div');
   content.className = 'card-content';
@@ -94,47 +92,28 @@ function renderCard(p) {
   tags.className = 'card-tags';
   p.tags.forEach((t) => {
     const tag = document.createElement('span');
-    tag.className = 'tag';
+    tag.className = 'card-tag';
     tag.textContent = t;
     tags.appendChild(tag);
   });
   content.appendChild(tags);
 
   if (p.link) {
-    const link = document.createElement('a');
-    link.className = 'card-link';
-    link.href = p.link;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.textContent = '→ View project';
-    content.appendChild(link);
+    const a = document.createElement('a');
+    a.className = 'card-link';
+    a.href = p.link;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.textContent = '→ View';
+    content.appendChild(a);
   }
 
-  card.appendChild(content);
-  return card;
+  el.appendChild(content);
+  return el;
 }
 
-const grid = document.getElementById('projects-grid');
-if (grid) {
-  projects.forEach((p, i) => {
-    const card = renderCard(p);
-    card.dataset.delay = String(i * 80);
-    grid.appendChild(card);
-  });
-
-  grid.querySelectorAll('.card.reveal').forEach((el) => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = el.dataset.delay ? parseInt(el.dataset.delay) : 0;
-            setTimeout(() => el.classList.add('visible'), delay);
-            observer.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '-60px 0px 0px 0px' }
-    );
-    observer.observe(el);
-  });
+const track = document.getElementById('projects-track');
+if (track) {
+  projects.forEach((p) => track.appendChild(buildCard(p)));
+  enableDragScroll(track);
 }

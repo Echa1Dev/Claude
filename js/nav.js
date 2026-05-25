@@ -1,5 +1,5 @@
 const hamburger = document.querySelector('.nav-hamburger');
-const navLinks = document.querySelector('.nav-links');
+const navLinks   = document.querySelector('.nav-links');
 
 hamburger.addEventListener('click', () => {
   const isOpen = hamburger.getAttribute('aria-expanded') === 'true';

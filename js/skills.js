@@ -1,5 +1,6 @@
 const skills = [
   {
+    num: '01',
     category: '3D & Visual',
     items: [
       'Blender — Modeling',
@@ -9,10 +10,11 @@ const skills = [
       'Blender — Compositor',
       'Blender — Particle Systems',
       'Toon / Cel Shading',
-      'Color Theory & Psicología del Color',
+      'Color Theory',
     ],
   },
   {
+    num: '02',
     category: 'Systems',
     items: [
       'Windows',
@@ -23,60 +25,64 @@ const skills = [
     ],
   },
   {
+    num: '03',
     category: 'Design & Dev',
     items: [
       'Figma',
       'HTML / CSS',
       'Web Development',
-      'Video Editing & Post-production',
+      'Video Editing',
+      'Post-production',
       'AI Tools',
     ],
   },
 ];
 
 const grid = document.getElementById('skills-grid');
+if (!grid) return;
 
-if (grid) {
-  skills.forEach((group, gi) => {
-    const cat = document.createElement('div');
-    cat.className = 'skills-category reveal';
-    cat.dataset.delay = String(gi * 100);
+skills.forEach((group) => {
+  const cat = document.createElement('div');
+  cat.className = 'skills-category reveal';
 
-    const label = document.createElement('p');
-    label.className = 'skills-category-label';
-    label.textContent = group.category;
-    cat.appendChild(label);
+  const header = document.createElement('div');
+  header.className = 'skills-cat-header';
 
-    const list = document.createElement('ul');
-    list.className = 'skills-list';
+  const num = document.createElement('span');
+  num.className = 'skills-cat-num';
+  num.textContent = group.num;
 
-    group.items.forEach((item) => {
-      const li = document.createElement('li');
-      li.className = 'skills-item';
-      li.textContent = item;
-      list.appendChild(li);
-    });
+  const name = document.createElement('span');
+  name.className = 'skills-cat-name';
+  name.textContent = group.category;
 
-    cat.appendChild(list);
-    grid.appendChild(cat);
+  header.append(num, name);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const delay = cat.dataset.delay ? parseInt(cat.dataset.delay) : 0;
-            setTimeout(() => {
-              cat.classList.add('visible');
-              list.querySelectorAll('.skills-item').forEach((li, i) => {
-                setTimeout(() => li.classList.add('visible'), i * 60);
-              });
-            }, delay);
-            observer.unobserve(cat);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '-60px 0px 0px 0px' }
-    );
-    observer.observe(cat);
+  const list = document.createElement('ul');
+  list.className = 'skills-list';
+
+  group.items.forEach((item) => {
+    const li = document.createElement('li');
+    li.className = 'skills-item';
+    li.textContent = item;
+    list.appendChild(li);
   });
-}
+
+  cat.append(header, list);
+  grid.appendChild(cat);
+
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        cat.classList.add('visible');
+        list.querySelectorAll('.skills-item').forEach((li, i) => {
+          setTimeout(() => li.classList.add('visible'), i * 55);
+        });
+        obs.unobserve(cat);
+      });
+    },
+    { threshold: 0.1, rootMargin: '-40px 0px 0px 0px' }
+  );
+  obs.observe(cat);
+});

@@ -6,11 +6,11 @@
   <title>Javier Echaide — 3D Artist & Indie Game Developer</title>
   <meta name="description" content="Portfolio of Javier Echaide López — 3D Artist and Indie Game Developer based in Pamplona, Spain." />
   <meta property="og:title" content="Javier Echaide — 3D Artist & Indie Game Developer" />
-  <meta property="og:description" content="Portfolio of Javier Echaide López — 3D Artist and Indie Game Developer based in Pamplona, Spain." />
+  <meta property="og:description" content="3D Artist & Indie Game Developer based in Pamplona, Spain." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/nav.css" />
   <link rel="stylesheet" href="css/hero.css" />
@@ -21,93 +21,105 @@
 </head>
 <body>
 
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
   <nav id="nav">
-    <a href="#hero" class="nav-logo" aria-label="Home">echa1dev</a>
-    <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="#about" aria-current="false">About</a></li>
-      <li><a href="#projects" aria-current="false">Projects</a></li>
-      <li><a href="#skills" aria-current="false">Skills</a></li>
-      <li><a href="#contact" aria-current="false">Contact</a></li>
-    </ul>
+    <a href="#hero" class="nav-logo" aria-label="Home">echa1dev<span class="nav-logo-accent">.</span></a>
+    <div class="nav-right">
+      <span class="nav-status"><span class="nav-status-dot"></span>Available</span>
+      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
   </nav>
 
   <section id="hero">
-    <div class="hero-inner">
-      <h1 class="hero-name">
-        <span>Javier</span>
-        <span>Echaide</span>
-      </h1>
-      <p class="hero-title">3D Artist &amp; Indie Game Developer</p>
-      <p class="hero-bio">
-        Based in Pamplona, Spain. I model, light, and render in Blender — and I'm building toward shipping original indie games. Everything I make is deliberate.
-      </p>
+    <div class="hero-meta">
+      <span>Pamplona, ES</span>
+      <span class="hero-meta-sep">·</span>
+      <span>2025</span>
     </div>
-    <div class="hero-scroll" aria-hidden="true">↓ scroll</div>
+    <div class="hero-name-wrap">
+      <h1 class="hero-name">
+        <span class="hero-name-line"><span class="hero-name-inner">Javier</span></span>
+        <span class="hero-name-line"><span class="hero-name-inner">Echaide</span></span>
+      </h1>
+    </div>
+    <div class="hero-bottom">
+      <p class="hero-title">3D Artist <span class="hero-amp">&amp;</span> Indie Game Developer</p>
+      <a href="#projects" class="hero-cta">See work <span class="hero-cta-arrow">↓</span></a>
+    </div>
+    <div class="hero-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-text">Blender · Modeling · Animation · Lighting · Toon Shading · Compositing · Particle Systems · Color Theory · Indie Game Dev · 3D Rendering · Figma · Shell Script · </span>
+        <span class="marquee-text" aria-hidden="true">Blender · Modeling · Animation · Lighting · Toon Shading · Compositing · Particle Systems · Color Theory · Indie Game Dev · 3D Rendering · Figma · Shell Script · </span>
+      </div>
+    </div>
   </section>
-
-  <div class="divider"></div>
 
   <section id="about">
-    <span class="section-number" aria-hidden="true">01</span>
+    <div class="about-label reveal">
+      <span class="section-num">01</span>
+      <span class="section-tag">About</span>
+    </div>
     <div class="about-grid">
-      <div class="about-text reveal">
-        <p class="section-label">About</p>
-        <h2 class="section-title">Who I Am</h2>
-        <p>
-          I'm a 3D artist and aspiring indie game developer currently studying Animación 3D, Juegos y Entornos Interactivos in Pamplona. My background covers systems administration and web development, but it's Blender where I spend most of my time — modeling, lighting, shading, compositing.
-        </p>
-        <p>
-          Before this I completed a Grado Medio in Sistemas Microinformáticos y Redes, which means I can set up the server and render the scene. I've done internships doing web development and video editing for real estate, which taught me that deadlines and client taste are their own kind of constraint.
-        </p>
-        <p class="about-statement">
-          I want to ship original indie games — where every art direction call, gameplay mechanic, and design decision comes from the same pair of hands. Raw, authored, intentional.
-        </p>
+      <div class="about-statement reveal" data-delay="120">
+        <p>Building worlds,<br>one render<br>at a time.</p>
       </div>
-      <div class="about-deco reveal" data-delay="150" aria-hidden="true">
-        <div class="about-initials">JE</div>
+      <div class="about-body reveal" data-delay="240">
+        <p>
+          I'm a 3D artist and aspiring indie game developer currently studying Animación 3D, Juegos y Entornos Interactivos in Pamplona. My background covers systems administration and web dev — but Blender is where I live: modeling, lighting, shading, compositing.
+        </p>
+        <p>
+          Before this I completed a Grado Medio in Sistemas Microinformáticos y Redes. Internships in web dev and real-estate video editing taught me that deadlines and client taste are their own creative constraint.
+        </p>
+        <p class="about-goal">
+          My aim is to ship original indie games where every art direction call, mechanic, and design decision comes from the same pair of hands.
+        </p>
       </div>
     </div>
   </section>
-
-  <div class="divider"></div>
 
   <section id="projects">
-    <span class="section-number" aria-hidden="true">02</span>
-    <div class="projects-header reveal">
-      <p class="section-label">Work</p>
-      <h2 class="section-title">Projects</h2>
+    <div class="projects-top">
+      <div class="projects-label reveal">
+        <span class="section-num">02</span>
+        <span class="section-tag">Work</span>
+      </div>
+      <p class="projects-hint reveal" data-delay="80">drag to explore →</p>
     </div>
-    <div class="projects-grid" id="projects-grid"></div>
+    <div class="projects-track" id="projects-track"></div>
   </section>
 
-  <div class="divider"></div>
-
   <section id="skills">
-    <span class="section-number" aria-hidden="true">03</span>
-    <div class="skills-header reveal">
-      <p class="section-label">Craft</p>
-      <h2 class="section-title">Skills</h2>
+    <div class="skills-label reveal">
+      <span class="section-num">03</span>
+      <span class="section-tag">Skills</span>
     </div>
     <div class="skills-grid" id="skills-grid"></div>
   </section>
 
-  <div class="divider"></div>
-
   <section id="contact">
-    <span class="section-number" aria-hidden="true">04</span>
-    <div class="contact-grid">
-      <div class="contact-statement reveal">
-        <p class="section-label">Contact</p>
-        <h2 class="section-title">Let's Talk</h2>
-        <p>
-          Open to collaborations, freelance work, and indie game projects. If you have something interesting, reach out.
-        </p>
-        <a href="assets/cv.pdf" download class="btn-invert" aria-label="Download CV">Download CV →</a>
+    <div class="contact-label reveal">
+      <span class="section-num">04</span>
+      <span class="section-tag">Contact</span>
+    </div>
+    <div class="contact-body">
+      <h2 class="contact-heading">
+        <span class="contact-line reveal" data-delay="60">Want to build</span>
+        <span class="contact-line reveal" data-delay="160">something?</span>
+      </h2>
+      <div class="contact-links reveal" data-delay="280" id="contact-links"></div>
+      <div class="contact-cv reveal" data-delay="360">
+        <a href="assets/cv.pdf" download class="btn-cv">Download CV →</a>
       </div>
-      <div class="contact-links reveal" data-delay="150" id="contact-links"></div>
     </div>
   </section>
 

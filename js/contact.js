@@ -1,47 +1,36 @@
-const contactData = [
-  {
-    label: 'GitHub',
-    url: 'https://github.com/Echa1Dev',
-    display: 'github.com/Echa1Dev',
-  },
-  {
-    label: 'Email',
-    url: 'mailto:jechaidlop07@gmail.com',
-    display: 'jechaidlop07@gmail.com',
-  },
+const links = [
+  { label: 'GitHub',  href: 'https://github.com/Echa1Dev', display: 'github.com/Echa1Dev' },
+  { label: 'Email',   href: 'mailto:jechaidlop07@gmail.com', display: 'jechaidlop07@gmail.com' },
 ];
 
 const container = document.getElementById('contact-links');
+if (!container) return;
 
-if (container) {
-  contactData.forEach((item) => {
-    const row = document.createElement('div');
-    row.className = 'contact-link-item';
+links.forEach((item) => {
+  const row = document.createElement('div');
+  row.className = 'contact-link-row';
 
-    const arrow = document.createElement('span');
-    arrow.className = 'contact-link-arrow';
-    arrow.textContent = '→';
-    row.appendChild(arrow);
+  const arrow = document.createElement('span');
+  arrow.className = 'contact-arrow';
+  arrow.textContent = '→';
 
-    const body = document.createElement('div');
-    body.className = 'contact-link-body';
+  const info = document.createElement('div');
+  info.className = 'contact-link-info';
 
-    const label = document.createElement('span');
-    label.className = 'contact-link-label';
-    label.textContent = item.label;
-    body.appendChild(label);
+  const label = document.createElement('span');
+  label.className = 'contact-link-label';
+  label.textContent = item.label;
 
-    const url = document.createElement('a');
-    url.className = 'contact-link-url';
-    url.href = item.url;
-    if (!item.url.startsWith('mailto')) {
-      url.target = '_blank';
-      url.rel = 'noopener noreferrer';
-    }
-    url.textContent = item.display;
-    body.appendChild(url);
+  const val = document.createElement('a');
+  val.className = 'contact-link-val';
+  val.href = item.href;
+  val.textContent = item.display;
+  if (!item.href.startsWith('mailto')) {
+    val.target = '_blank';
+    val.rel = 'noopener noreferrer';
+  }
 
-    row.appendChild(body);
-    container.appendChild(row);
-  });
-}
+  info.append(label, val);
+  row.append(arrow, info);
+  container.appendChild(row);
+});

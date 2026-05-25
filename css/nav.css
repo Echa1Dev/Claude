@@ -1,51 +1,97 @@
 #nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background: var(--cream);
-  border-bottom: 1px solid var(--ink);
-  padding: 1rem var(--space-md);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 1.25rem var(--space-md);
+  border-bottom: 1px solid transparent;
+  transition: background 0.4s ease, border-color 0.4s ease,
+              backdrop-filter 0.4s ease;
+}
+
+#nav.scrolled {
+  background: rgba(10, 10, 10, 0.85);
+  border-color: var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .nav-logo {
-  font-family: 'Space Grotesk', monospace;
-  font-weight: 700;
-  font-size: 0.875rem;
-  text-transform: lowercase;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--fg);
   text-decoration: none;
-  color: var(--ink);
-  letter-spacing: 0.05em;
+  cursor: none;
+}
+
+.nav-logo-accent {
+  color: var(--accent);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.nav-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-label);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: rgba(237, 234, 217, 0.4);
+}
+
+.nav-status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
+  list-style: none;
   gap: var(--space-md);
-  align-items: center;
 }
 
 .nav-links a {
   font-size: var(--fs-label);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  text-decoration: none;
-  color: var(--ink);
+  letter-spacing: 0.18em;
+  color: rgba(237, 234, 217, 0.55);
+  transition: color 0.15s ease;
+  cursor: none;
   position: relative;
-  padding-bottom: 2px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 400;
 }
 
 .nav-links a::after {
   content: '';
-  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
   width: 0;
   height: 1px;
-  background: var(--ink);
-  transition: width 0.2s ease;
+  background: var(--accent);
+  transition: width 0.25s var(--ease-out);
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="true"] {
+  color: var(--fg);
 }
 
 .nav-links a:hover::after,
@@ -56,67 +102,62 @@
 .nav-hamburger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   background: none;
   border: none;
-  cursor: pointer;
+  cursor: none;
   padding: 4px;
 }
 
 .nav-hamburger span {
   display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--ink);
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  width: 20px;
+  height: 1px;
+  background: var(--fg);
+  transition: transform 0.3s var(--ease-out), opacity 0.2s ease, width 0.3s ease;
 }
 
 .nav-hamburger[aria-expanded="true"] span:nth-child(1) {
   transform: translateY(7px) rotate(45deg);
 }
 .nav-hamburger[aria-expanded="true"] span:nth-child(2) {
-  opacity: 0;
+  transform: translateY(0) rotate(-45deg);
 }
-.nav-hamburger[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
+
+/* offset body so content isn't under fixed nav */
+body { padding-top: 60px; }
 
 @media (max-width: 768px) {
-  #nav {
-    padding: 1rem var(--space-sm);
-    flex-wrap: wrap;
-  }
+  #nav { padding: 1.25rem var(--space-sm); }
 
-  .nav-hamburger {
-    display: flex;
-  }
+  .nav-status { display: none; }
+
+  .nav-hamburger { display: flex; }
 
   .nav-links {
     display: none;
-    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
     flex-direction: column;
-    align-items: flex-start;
     gap: 0;
-    border-top: 1px solid var(--ink);
-    margin-top: 1rem;
+    background: rgba(10, 10, 10, 0.97);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(12px);
   }
 
-  .nav-links.open {
-    display: flex;
-  }
+  .nav-links.open { display: flex; }
 
   .nav-links li {
-    width: 100%;
-    border-bottom: 1px solid var(--ink);
+    border-bottom: 1px solid var(--border);
   }
 
   .nav-links a {
     display: block;
-    padding: var(--space-sm) 0;
-    width: 100%;
+    padding: var(--space-sm) var(--space-sm);
+    color: var(--fg);
   }
 
-  .nav-links a::after {
-    display: none;
-  }
+  .nav-links a::after { display: none; }
 }
