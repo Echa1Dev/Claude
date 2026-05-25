@@ -1,20 +1,14 @@
-/* ── WIPE INTERCEPT ─────────────────── */
 document.querySelectorAll('[data-wipe]').forEach((el) => {
   el.addEventListener('click', (e) => {
     const target = el.dataset.wipe;
-    const section = document.getElementById(target);
-    if (!section) return;
+    if (!document.getElementById(target)) return;
     e.preventDefault();
-
-    // close mobile menu if open
     burger?.setAttribute('aria-expanded', 'false');
     links?.classList.remove('open');
-
     wipeNav(target);
   });
 });
 
-/* ── HAMBURGER ──────────────────────── */
 const burger = document.querySelector('.nav-burger');
 const links  = document.querySelector('.nav-links');
 
@@ -24,9 +18,7 @@ burger?.addEventListener('click', () => {
   links?.classList.toggle('open', !open);
 });
 
-/* ── TEXT SCRAMBLE ON NAV HOVER ──────── */
 const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
 function scramble(el) {
   const orig = el.dataset.orig ?? el.textContent;
   el.dataset.orig = orig;
@@ -34,19 +26,13 @@ function scramble(el) {
   const total = orig.length * 2;
   if (el._scram) clearInterval(el._scram);
   el._scram = setInterval(() => {
-    el.textContent = orig
-      .split('')
-      .map((ch, i) => {
-        if (ch === ' ') return ' ';
-        if (i < frame / 2) return orig[i];
-        return CHARS[Math.floor(Math.random() * CHARS.length)];
-      })
-      .join('');
+    el.textContent = orig.split('').map((ch, i) => {
+      if (ch === ' ') return ' ';
+      if (i < frame / 2) return orig[i];
+      return CHARS[Math.floor(Math.random() * CHARS.length)];
+    }).join('');
     frame++;
     if (frame > total) { el.textContent = orig; clearInterval(el._scram); }
   }, 28);
 }
-
-document.querySelectorAll('.nav-links a').forEach((a) => {
-  a.addEventListener('mouseenter', () => scramble(a));
-});
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('mouseenter', () => scramble(a)));

@@ -262,3 +262,22 @@ footer a:hover { color: var(--ink); }
   section { padding: var(--sp-lg) var(--sp-sm); }
   footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 }
+
+/* ── SCROLL PROGRESS BAR ────────────────────── */
+#progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--ink);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 300;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ── SMOOTH SCROLL WRAPPER ──────────────────── */
+#s {
+  will-change: transform;
+}
