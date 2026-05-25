@@ -61,39 +61,27 @@ const heroEye  = document.querySelector('.hero-eyebrow');
 const heroFoot = document.querySelector('.hero-foot');
 const heroMq   = document.querySelector('.hero-marquee');
 
-/* Reveal elements */
-let revEls = [];
-function collectRevEls() { revEls = Array.from(document.querySelectorAll('.reveal:not(.visible)')); }
-
+/* Reveal elements — live query so dynamically added elements are always found.
+   .pending guards against queueing duplicate timeouts on rapid scroll. */
 function checkReveals() {
   const ih = window.innerHeight;
-  revEls = revEls.filter(el => {
-    if (el.classList.contains('visible')) return false;
+  document.querySelectorAll('.reveal:not(.visible):not(.pending)').forEach(el => {
     const r = el.getBoundingClientRect();
     if (r.top < ih - 55 && r.bottom > 0) {
+      el.classList.add('pending');
       const d = el.dataset.delay ? parseInt(el.dataset.delay, 10) : 0;
-      setTimeout(() => el.classList.add('visible'), d);
-      return false;
+      setTimeout(() => { el.classList.remove('pending'); el.classList.add('visible'); }, d);
     }
-    return true;
   });
 }
 
-/* Mask reveals (contact heading etc — hero name handled separately with stagger) */
-let maskEls = [];
-function collectMaskEls() {
-  maskEls = Array.from(document.querySelectorAll('.minner:not(.up)')).filter(el => !el.closest('.hero-name'));
-}
-
+/* Mask reveals — live query, hero name excluded (handled with stagger) */
 function checkMasks() {
   const ih = window.innerHeight;
-  maskEls = maskEls.filter(el => {
+  document.querySelectorAll('.minner:not(.up)').forEach(el => {
+    if (el.closest('.hero-name')) return;
     const r = el.closest('.mline')?.getBoundingClientRect() || el.getBoundingClientRect();
-    if (r.top < ih - 40) {
-      el.classList.add('up');
-      return false;
-    }
-    return true;
+    if (r.top < ih - 40) el.classList.add('up');
   });
 }
 
@@ -192,9 +180,6 @@ if (!MOBILE && wrapper) {
     if (map[e.key] != null) { e.preventDefault(); targetY = clamp(targetY + map[e.key], 0, maxY); }
   });
 
-  collectRevEls();
-  collectMaskEls();
-
   function tick() {
     scrollY = lerp(scrollY, targetY, 0.085);
     wrapper.style.transform = `translateY(${-scrollY}px)`;
@@ -216,42 +201,18 @@ if (!MOBILE && wrapper) {
 
 /* ─── Mobile: native scroll ─── */
 } else {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target;
-      const d = el.dataset.delay ? parseInt(el.dataset.delay, 10) : 0;
-      setTimeout(() => el.classList.add('visible'), d);
-      obs.unobserve(el);
-    });
-  }, { threshold: 0.12, rootMargin: '-40px 0px 0px 0px' });
-
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   document.querySelectorAll('.hero-name .minner').forEach((el, i) => {
     setTimeout(() => el.classList.add('up'), 200 + i * 130);
   });
 
-  window.addEventListener('scroll', updateNav, { passive: true });
-
-  const secObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const obs2 = new IntersectionObserver((ee) => {
-        ee.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          entry.target.querySelectorAll('.minner').forEach(m => m.classList.add('up'));
-          obs2.unobserve(entry.target);
-        });
-      }, { threshold: 0.2 });
-      obs2.observe(e.target);
-    });
-  }, { threshold: 0.2 });
-
-  document.querySelectorAll('.mline').forEach(el => secObs.observe(el));
-
   window.addEventListener('scroll', () => {
+    checkReveals();
+    checkMasks();
+    updateNav();
     if (progress) progress.style.transform = `scaleX(${window.scrollY / (document.body.scrollHeight - window.innerHeight)})`;
   }, { passive: true });
+
+  setTimeout(() => { checkReveals(); checkMasks(); }, 120);
 }
 
 /* drag scroll helper */
