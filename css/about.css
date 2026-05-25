@@ -1,0 +1,68 @@
+/* ================================================
+   ABOUT
+   ================================================ */
+#about {
+  padding: var(--space-xl) var(--space-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: 60fr 40fr;
+  gap: var(--space-lg);
+  max-width: 1400px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-bio {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.8;
+  margin-bottom: var(--space-md);
+  max-width: 640px;
+}
+
+.about-statement {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+  border-left: 2px solid var(--ink);
+  padding-left: var(--space-md);
+  margin-top: var(--space-lg);
+  max-width: 580px;
+}
+
+/* Ghost initials */
+.about-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-initials {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(6rem, 16vw, 18rem);
+  letter-spacing: -0.08em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ink);
+  text-transform: uppercase;
+  user-select: none;
+  border: 2px solid var(--ink);
+  padding: 0.1em 0.2em;
+}
+
+@media (max-width: 768px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .about-right {
+    display: none;
+  }
+}

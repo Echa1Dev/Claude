@@ -1,0 +1,170 @@
+/* ================================================
+   RESET
+   ================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ================================================
+   CSS CUSTOM PROPERTIES
+   ================================================ */
+:root {
+  --cream: #F5F0E8;
+  --ink:   #0A0A0A;
+
+  --fs-display: clamp(4rem, 11vw, 10.5rem);
+  --fs-h1:      clamp(2rem, 5vw, 4rem);
+  --fs-h2:      clamp(1.25rem, 3vw, 2rem);
+  --fs-body:    1rem;
+  --fs-label:   0.6875rem;
+
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  2rem;
+  --space-lg:  4rem;
+  --space-xl:  7rem;
+  --space-2xl: 10rem;
+
+  --transition-fast: 0.15s ease;
+  --transition-mid:  0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ================================================
+   BASE
+   ================================================ */
+html {
+  scroll-behavior: smooth;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* ================================================
+   SCROLLBAR
+   ================================================ */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--ink); }
+
+/* ================================================
+   TYPOGRAPHY
+   ================================================ */
+h1, h2, h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+/* ================================================
+   SHARED UTILITIES
+   ================================================ */
+.section-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.45;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.section-title {
+  font-size: var(--fs-h1);
+  margin-bottom: var(--space-lg);
+}
+
+.section-number {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  opacity: 0.06;
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  pointer-events: none;
+  user-select: none;
+}
+
+.divider {
+  border: none;
+  border-top: 2px solid var(--ink);
+  margin: 0;
+}
+
+.tag {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  padding: 2px 8px;
+  display: inline-block;
+  border-radius: 0;
+  line-height: 1.6;
+}
+
+.btn-invert {
+  display: inline-block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cream);
+  background: var(--ink);
+  border: 2px solid var(--ink);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 0;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.btn-invert:hover {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+/* ================================================
+   SCROLL REVEAL
+   ================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

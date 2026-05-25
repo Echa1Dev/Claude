@@ -1,0 +1,106 @@
+/* ================================================
+   CONTACT
+   ================================================ */
+#contact {
+  padding: var(--space-xl) var(--space-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-inner {
+  max-width: 1400px;
+  position: relative;
+  z-index: 1;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+}
+
+.contact-statement {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.75;
+  opacity: 0.65;
+  max-width: 420px;
+  margin-bottom: var(--space-lg);
+}
+
+/* Link list */
+.contact-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--ink);
+  padding: var(--space-sm) 0;
+  text-decoration: none;
+  color: var(--ink);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    padding var(--transition-fast);
+  border-radius: 0;
+}
+
+.contact-link-item:last-child {
+  border-bottom: 1px solid var(--ink);
+}
+
+.contact-link-item:hover {
+  background: var(--ink);
+  color: var(--cream);
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  margin-left: calc(-1 * var(--space-sm));
+  margin-right: calc(-1 * var(--space-sm));
+}
+
+.contact-link-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.contact-link-url {
+  font-family: 'Inter', sans-serif;
+  font-size: var(--fs-label);
+  opacity: 0.45;
+  letter-spacing: 0.03em;
+}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+footer {
+  border-top: 2px solid var(--ink);
+  padding: var(--space-md);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-align: center;
+  }
+}
