@@ -79,9 +79,11 @@ function checkReveals() {
   });
 }
 
-/* Mask reveals (hero name, contact heading) */
+/* Mask reveals (contact heading etc — hero name handled separately with stagger) */
 let maskEls = [];
-function collectMaskEls() { maskEls = Array.from(document.querySelectorAll('.minner:not(.up)')); }
+function collectMaskEls() {
+  maskEls = Array.from(document.querySelectorAll('.minner:not(.up)')).filter(el => !el.closest('.hero-name'));
+}
 
 function checkMasks() {
   const ih = window.innerHeight;
@@ -118,14 +120,14 @@ function applyParallax() {
     heroName.style.transform = `translateY(${y * 0.2}px)`;
     heroName.style.opacity   = String(Math.max(0, 1 - y / (vh * 0.65)));
   }
-  if (heroEye) {
+  if (heroEye && y > 0) {
     heroEye.style.transform  = `translateY(${y * 0.08}px)`;
     heroEye.style.opacity    = String(Math.max(0, 1 - y / (vh * 0.38)));
   }
-  if (heroFoot) {
+  if (heroFoot && y > 0) {
     heroFoot.style.opacity   = String(Math.max(0, 1 - y / (vh * 0.32)));
   }
-  if (heroMq) {
+  if (heroMq && y > 0) {
     heroMq.style.opacity     = String(Math.max(0, 1 - y / (vh * 0.28)));
   }
 }
@@ -137,10 +139,13 @@ function wipeNav(targetId) {
   const section = document.getElementById(targetId);
   if (!section || !wipe) return;
 
-  wipe.style.transition      = 'transform 0.52s cubic-bezier(0.7,0,0.3,1)';
-  wipe.style.transformOrigin = 'bottom';
-  wipe.style.transform       = 'translateY(0)';
-  wipe.style.pointerEvents   = 'all';
+  /* Phase 1: ink slides up from below */
+  wipe.style.transition    = 'none';
+  wipe.style.transform     = 'translateY(100%)';
+  wipe.style.pointerEvents = 'all';
+  void wipe.offsetWidth; /* force reflow so transition sees the starting position */
+  wipe.style.transition = 'transform 0.52s cubic-bezier(0.7,0,0.3,1)';
+  wipe.style.transform  = 'translateY(0)';
 
   setTimeout(() => {
     const dest = clamp(section.offsetTop, 0, maxY);
@@ -151,15 +156,15 @@ function wipeNav(targetId) {
       section.scrollIntoView({ behavior: 'instant' });
     }
 
-    wipe.style.transition      = 'transform 0.52s cubic-bezier(0.7,0,0.3,1)';
-    wipe.style.transformOrigin = 'top';
-    wipe.style.transform       = 'translateY(-100%)';
+    /* Phase 2: ink continues up and exits */
+    void wipe.offsetWidth;
+    wipe.style.transition = 'transform 0.52s cubic-bezier(0.7,0,0.3,1)';
+    wipe.style.transform  = 'translateY(-100%)';
 
     setTimeout(() => {
-      wipe.style.transition      = 'none';
-      wipe.style.transform       = 'translateY(100%)';
-      wipe.style.transformOrigin = 'bottom';
-      wipe.style.pointerEvents   = 'none';
+      wipe.style.transition    = 'none';
+      wipe.style.transform     = 'translateY(100%)';
+      wipe.style.pointerEvents = 'none';
     }, 560);
   }, 560);
 }
@@ -203,6 +208,10 @@ if (!MOBILE && wrapper) {
 
   measure();
   tick();
+  /* Hero name stagger on desktop (mask reveal) */
+  document.querySelectorAll('.hero-name .minner').forEach((el, i) => {
+    setTimeout(() => el.classList.add('up'), 300 + i * 140);
+  });
   setTimeout(() => { checkReveals(); checkMasks(); }, 120);
 
 /* ─── Mobile: native scroll ─── */
