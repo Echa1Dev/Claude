@@ -7,7 +7,7 @@ const projects = [
     year: '2025',
     status: 'finished',
     link: null,
-    image: '/assets/img/toon-car.jpg',
+    image: 'assets/img/toon-car.jpg',
     featured: true,
   },
   {
@@ -18,7 +18,7 @@ const projects = [
     year: '2025',
     status: 'finished',
     link: null,
-    image: '/assets/img/alarm-clock.jpg',
+    image: 'assets/img/alarm-clock.jpg',
     featured: true,
   },
   {
@@ -29,7 +29,7 @@ const projects = [
     year: '2025',
     status: 'finished',
     link: null,
-    image: '/assets/img/lighting-study.jpg',
+    image: 'assets/img/lighting-study.jpg',
     featured: false,
   },
   {
