@@ -1,106 +1,108 @@
-const projects = [
+const PROJECTS = [
   {
     id: 'toon-car',
     title: 'Toon Car',
-    description: 'Cel-shaded vehicle render. Custom shader nodes produce hand-drawn outlines with flat color regions. Full scene with road and grass props.',
+    desc: 'Cel-shaded vehicle render. Custom shader nodes produce hand-drawn outlines with flat color regions. Full scene with road plane and grass props.',
     tags: ['Blender', '3D Modeling', 'Toon Shading', 'Rendering'],
     year: '2025',
     status: 'Finished',
     link: null,
     image: 'assets/img/toon-car.jpg',
-    featured: true,
+    feat: true,
   },
   {
     id: 'alarm-clock',
     title: 'Alarm Clock',
-    description: 'Pop-art alarm clock. Toon shading, halftone dot patterns, and strong ink outlines. Warm pink against teal — graphic novel panel feel.',
+    desc: 'Pop-art alarm clock. Toon shading, halftone dot patterns and strong ink outlines. Warm pink against teal — graphic novel panel feel.',
     tags: ['Blender', '3D Modeling', 'Toon Shading', 'Texturing'],
     year: '2025',
     status: 'Finished',
     link: null,
     image: 'assets/img/alarm-clock.jpg',
-    featured: true,
+    feat: true,
   },
   {
     id: 'lighting-study',
     title: 'Lighting Study',
-    description: 'CILA Final — 2024/25. Same scene, two emotional extremes: warm/cheerful vs. cold/disturbing. All mood from light position, color temperature, and pupil texture edits. No geometry changes.',
+    desc: 'CILA Final — 2024/25. Same scene, two emotional extremes. All mood from light placement, color temperature, and pupil texture edits — zero geometry changes.',
     tags: ['Blender', 'Lighting', 'Color Theory', 'Particle Systems'],
     year: '2025',
     status: 'Finished',
     link: null,
     image: 'assets/img/lighting-study.jpg',
-    featured: false,
+    feat: false,
   },
   {
-    id: 'school-website',
+    id: 'school-web',
     title: 'School Website',
-    description: 'Official site for an educational center. Full design and development during FCT internship.',
+    desc: 'Official site for an educational center. Full design and development during FCT internship.',
     tags: ['Web Dev', 'HTML', 'CSS'],
     year: '2024',
     status: 'Finished',
     link: null,
     image: null,
-    featured: false,
+    feat: false,
   },
 ];
 
 function buildCard(p) {
-  const el = document.createElement('article');
-  el.className = `card${p.featured ? ' featured' : ''}`;
+  const card = document.createElement('article');
+  card.className = `pcard${p.feat ? ' feat' : ''}`;
+  card.setAttribute('data-cursor', 'VIEW');
 
   if (p.image) {
-    const bg = document.createElement('div');
-    bg.className = 'card-bg';
-    bg.style.backgroundImage = `url('${p.image}')`;
-    el.appendChild(bg);
-    const ov = document.createElement('div');
-    ov.className = 'card-overlay';
-    el.appendChild(ov);
+    const img = document.createElement('div');
+    img.className = 'pcard-img';
+    img.style.backgroundImage = `url('${p.image}')`;
+    card.appendChild(img);
+
+    const grad = document.createElement('div');
+    grad.className = 'pcard-grad';
+    card.appendChild(grad);
   } else {
     const ghost = document.createElement('div');
-    ghost.className = 'card-ghost';
+    ghost.className = 'pcard-ghost';
     ghost.setAttribute('aria-hidden', 'true');
     ghost.textContent = p.title;
-    el.appendChild(ghost);
+    card.appendChild(ghost);
   }
 
-  const status = document.createElement('span');
-  status.className = 'card-status';
-  status.textContent = p.status;
-  el.appendChild(status);
+  const badge = document.createElement('span');
+  badge.className = 'pcard-status';
+  badge.textContent = p.status;
+  card.appendChild(badge);
 
   const content = document.createElement('div');
-  content.className = 'card-content';
+  content.className = 'pcard-content';
 
-  const year = document.createElement('p');
-  year.className = 'card-year';
-  year.textContent = p.year;
-  content.appendChild(year);
+  const yr = document.createElement('p');
+  yr.className = 'pcard-yr';
+  yr.textContent = p.year;
+  content.appendChild(yr);
 
   const title = document.createElement('h3');
-  title.className = 'card-title';
+  title.className = 'pcard-title';
   title.textContent = p.title;
   content.appendChild(title);
 
   const desc = document.createElement('p');
-  desc.className = 'card-desc';
-  desc.textContent = p.description;
+  desc.className = 'pcard-desc';
+  desc.textContent = p.desc;
   content.appendChild(desc);
 
   const tags = document.createElement('div');
-  tags.className = 'card-tags';
+  tags.className = 'pcard-tags';
   p.tags.forEach((t) => {
-    const tag = document.createElement('span');
-    tag.className = 'card-tag';
-    tag.textContent = t;
-    tags.appendChild(tag);
+    const s = document.createElement('span');
+    s.className = 'pcard-tag';
+    s.textContent = t;
+    tags.appendChild(s);
   });
   content.appendChild(tags);
 
   if (p.link) {
     const a = document.createElement('a');
-    a.className = 'card-link';
+    a.className = 'pcard-link';
     a.href = p.link;
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
@@ -108,12 +110,12 @@ function buildCard(p) {
     content.appendChild(a);
   }
 
-  el.appendChild(content);
-  return el;
+  card.appendChild(content);
+  return card;
 }
 
-const track = document.getElementById('projects-track');
-if (track) {
-  projects.forEach((p) => track.appendChild(buildCard(p)));
-  enableDragScroll(track);
+const rail = document.getElementById('proj-rail');
+if (rail) {
+  PROJECTS.forEach((p) => rail.appendChild(buildCard(p)));
+  makeDraggable(rail);
 }

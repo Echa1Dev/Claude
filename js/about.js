@@ -1,1 +1,1 @@
-// reveal handled by main.js IntersectionObserver
+// reveal handled by IntersectionObserver in main.js

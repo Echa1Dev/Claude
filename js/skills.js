@@ -1,7 +1,7 @@
-const skills = [
+const SKILLS = [
   {
     num: '01',
-    category: '3D & Visual',
+    name: '3D & Visual',
     items: [
       'Blender — Modeling',
       'Blender — Animation',
@@ -15,7 +15,7 @@ const skills = [
   },
   {
     num: '02',
-    category: 'Systems',
+    name: 'Systems',
     items: [
       'Windows',
       'Linux',
@@ -26,7 +26,7 @@ const skills = [
   },
   {
     num: '03',
-    category: 'Design & Dev',
+    name: 'Design & Dev',
     items: [
       'Figma',
       'HTML / CSS',
@@ -38,51 +38,48 @@ const skills = [
   },
 ];
 
-const grid = document.getElementById('skills-grid');
-if (!grid) return;
+const cols = document.getElementById('skills-cols');
+if (!cols) return;
 
-skills.forEach((group) => {
-  const cat = document.createElement('div');
-  cat.className = 'skills-category reveal';
+SKILLS.forEach((group) => {
+  const col = document.createElement('div');
+  col.className = 'sk-col reveal';
 
-  const header = document.createElement('div');
-  header.className = 'skills-cat-header';
+  const head = document.createElement('div');
+  head.className = 'sk-col-head';
 
   const num = document.createElement('span');
-  num.className = 'skills-cat-num';
+  num.className = 'sk-col-num';
   num.textContent = group.num;
 
   const name = document.createElement('span');
-  name.className = 'skills-cat-name';
-  name.textContent = group.category;
+  name.className = 'sk-col-name';
+  name.textContent = group.name;
 
-  header.append(num, name);
+  head.append(num, name);
 
   const list = document.createElement('ul');
-  list.className = 'skills-list';
-
+  list.className = 'sk-list';
   group.items.forEach((item) => {
     const li = document.createElement('li');
-    li.className = 'skills-item';
+    li.className = 'sk-item';
     li.textContent = item;
     list.appendChild(li);
   });
 
-  cat.append(header, list);
-  grid.appendChild(cat);
+  col.append(head, list);
+  cols.appendChild(col);
 
   const obs = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        cat.classList.add('visible');
-        list.querySelectorAll('.skills-item').forEach((li, i) => {
-          setTimeout(() => li.classList.add('visible'), i * 55);
-        });
-        obs.unobserve(cat);
+      if (!entries[0].isIntersecting) return;
+      col.classList.add('visible');
+      list.querySelectorAll('.sk-item').forEach((li, i) => {
+        setTimeout(() => li.classList.add('up'), i * 52);
       });
+      obs.unobserve(col);
     },
-    { threshold: 0.1, rootMargin: '-40px 0px 0px 0px' }
+    { threshold: 0.08, rootMargin: '-40px 0px 0px 0px' }
   );
-  obs.observe(cat);
+  obs.observe(col);
 });

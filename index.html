@@ -6,11 +6,11 @@
   <title>Javier Echaide — 3D Artist & Indie Game Developer</title>
   <meta name="description" content="Portfolio of Javier Echaide López — 3D Artist and Indie Game Developer based in Pamplona, Spain." />
   <meta property="og:title" content="Javier Echaide — 3D Artist & Indie Game Developer" />
-  <meta property="og:description" content="3D Artist & Indie Game Developer based in Pamplona, Spain." />
+  <meta property="og:description" content="3D Artist & Indie Game Developer. Pamplona, Spain." />
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Inter:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/nav.css" />
   <link rel="stylesheet" href="css/hero.css" />
@@ -21,111 +21,128 @@
 </head>
 <body>
 
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
+  <!-- Page-wipe transition curtain -->
+  <div id="wipe" aria-hidden="true"></div>
 
+  <!-- Grain texture overlay -->
+  <div id="grain" aria-hidden="true"></div>
+
+  <!-- Custom cursor -->
+  <div id="cur" aria-hidden="true">
+    <div id="cur-dot"></div>
+    <div id="cur-ring"><span id="cur-lbl"></span></div>
+  </div>
+
+  <!-- ── NAV ─────────────────────────── -->
   <nav id="nav">
-    <a href="#hero" class="nav-logo" aria-label="Home">echa1dev<span class="nav-logo-accent">.</span></a>
+    <a href="#hero" class="nav-logo" data-wipe="hero">
+      echa1dev<span class="nav-dot">.</span>
+    </a>
     <div class="nav-right">
-      <span class="nav-status"><span class="nav-status-dot"></span>Available</span>
-      <button class="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span class="nav-avail"><span class="avail-dot"></span>Available</span>
+      <button class="nav-burger" aria-label="Menu" aria-expanded="false">
         <span></span><span></span>
       </button>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about"    data-wipe="about">About</a></li>
+        <li><a href="#projects" data-wipe="projects">Projects</a></li>
+        <li><a href="#skills"   data-wipe="skills">Skills</a></li>
+        <li><a href="#contact"  data-wipe="contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
+  <!-- ── HERO ────────────────────────── -->
   <section id="hero">
-    <div class="hero-meta">
-      <span>Pamplona, ES</span>
-      <span class="hero-meta-sep">·</span>
-      <span>2025</span>
+    <div class="hero-eyebrow">
+      <span class="hero-loc">Pamplona, ES</span>
+      <span class="hero-sep" aria-hidden="true">·</span>
+      <span class="hero-role">3D Artist &amp; Indie Game Dev</span>
     </div>
-    <div class="hero-name-wrap">
+
+    <div class="hero-center">
       <h1 class="hero-name">
-        <span class="hero-name-line"><span class="hero-name-inner">Javier</span></span>
-        <span class="hero-name-line"><span class="hero-name-inner">Echaide</span></span>
+        <span class="mline"><em class="minner">Javier</em></span>
+        <span class="mline outline"><em class="minner">Echaide</em></span>
       </h1>
     </div>
-    <div class="hero-bottom">
-      <p class="hero-title">3D Artist <span class="hero-amp">&amp;</span> Indie Game Developer</p>
-      <a href="#projects" class="hero-cta">See work <span class="hero-cta-arrow">↓</span></a>
+
+    <div class="hero-foot">
+      <a href="#projects" class="hero-cta" data-wipe="projects" data-cursor="EXPLORE">
+        <span>See work</span>
+        <span class="cta-arr">↓</span>
+      </a>
+      <span class="hero-year">2025</span>
     </div>
+
     <div class="hero-marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span class="marquee-text">Blender · Modeling · Animation · Lighting · Toon Shading · Compositing · Particle Systems · Color Theory · Indie Game Dev · 3D Rendering · Figma · Shell Script · </span>
-        <span class="marquee-text" aria-hidden="true">Blender · Modeling · Animation · Lighting · Toon Shading · Compositing · Particle Systems · Color Theory · Indie Game Dev · 3D Rendering · Figma · Shell Script · </span>
+      <div class="mq-track">
+        <span class="mq-text">Blender — Modeling — Animation — Lighting — Toon Shading — Compositing — Particle Systems — Color Theory — Indie Game Dev — 3D Rendering — Figma — Shell Script — </span>
+        <span class="mq-text" aria-hidden="true">Blender — Modeling — Animation — Lighting — Toon Shading — Compositing — Particle Systems — Color Theory — Indie Game Dev — 3D Rendering — Figma — Shell Script — </span>
       </div>
     </div>
   </section>
 
+  <!-- ── ABOUT ────────────────────────── -->
   <section id="about">
-    <div class="about-label reveal">
-      <span class="section-num">01</span>
-      <span class="section-tag">About</span>
+    <div class="sec-head reveal">
+      <span class="sec-num">01</span>
+      <span class="sec-label">About</span>
     </div>
     <div class="about-grid">
-      <div class="about-statement reveal" data-delay="120">
-        <p>Building worlds,<br>one render<br>at a time.</p>
-      </div>
-      <div class="about-body reveal" data-delay="240">
-        <p>
-          I'm a 3D artist and aspiring indie game developer currently studying Animación 3D, Juegos y Entornos Interactivos in Pamplona. My background covers systems administration and web dev — but Blender is where I live: modeling, lighting, shading, compositing.
-        </p>
-        <p>
-          Before this I completed a Grado Medio in Sistemas Microinformáticos y Redes. Internships in web dev and real-estate video editing taught me that deadlines and client taste are their own creative constraint.
-        </p>
-        <p class="about-goal">
-          My aim is to ship original indie games where every art direction call, mechanic, and design decision comes from the same pair of hands.
-        </p>
+      <p class="about-statement reveal" data-delay="110">
+        Building worlds,<br>one render<br>at a time.
+      </p>
+      <div class="about-body reveal" data-delay="230">
+        <p>I'm a 3D artist and aspiring indie game developer currently studying Animación 3D, Juegos y Entornos Interactivos in Pamplona. My background covers systems administration and web development — but Blender is where I live: modeling, lighting, shading, compositing.</p>
+        <p>Before 3D, I completed a Grado Medio in Sistemas Microinformáticos y Redes. Internships in web development and real-estate video editing taught me that deadlines and client taste are a creative constraint of their own.</p>
+        <blockquote class="about-quote">My aim is to ship original indie games where every art direction call, mechanic, and design decision comes from the same pair of hands.</blockquote>
       </div>
     </div>
   </section>
 
+  <!-- ── PROJECTS ──────────────────────── -->
   <section id="projects">
-    <div class="projects-top">
-      <div class="projects-label reveal">
-        <span class="section-num">02</span>
-        <span class="section-tag">Work</span>
+    <div class="sec-head reveal">
+      <div class="sec-head-l">
+        <span class="sec-num">02</span>
+        <span class="sec-label">Work</span>
       </div>
-      <p class="projects-hint reveal" data-delay="80">drag to explore →</p>
+      <span class="sec-hint reveal" data-delay="80">drag to explore →</span>
     </div>
-    <div class="projects-track" id="projects-track"></div>
+    <div class="proj-rail" id="proj-rail"></div>
   </section>
 
+  <!-- ── SKILLS ───────────────────────── -->
   <section id="skills">
-    <div class="skills-label reveal">
-      <span class="section-num">03</span>
-      <span class="section-tag">Skills</span>
+    <div class="sec-head reveal">
+      <span class="sec-num">03</span>
+      <span class="sec-label">Skills</span>
     </div>
-    <div class="skills-grid" id="skills-grid"></div>
+    <div class="skills-cols" id="skills-cols"></div>
   </section>
 
+  <!-- ── CONTACT ──────────────────────── -->
   <section id="contact">
-    <div class="contact-label reveal">
-      <span class="section-num">04</span>
-      <span class="section-tag">Contact</span>
+    <div class="sec-head reveal">
+      <span class="sec-num">04</span>
+      <span class="sec-label">Contact</span>
     </div>
     <div class="contact-body">
-      <h2 class="contact-heading">
-        <span class="contact-line reveal" data-delay="60">Want to build</span>
-        <span class="contact-line reveal" data-delay="160">something?</span>
+      <h2 class="contact-title">
+        <span class="mline reveal"    data-delay="60"><em class="minner">Want to build</em></span>
+        <span class="mline outline reveal" data-delay="180"><em class="minner">something?</em></span>
       </h2>
-      <div class="contact-links reveal" data-delay="280" id="contact-links"></div>
-      <div class="contact-cv reveal" data-delay="360">
-        <a href="assets/cv.pdf" download class="btn-cv">Download CV →</a>
-      </div>
+      <div class="contact-links reveal" data-delay="300" id="contact-links"></div>
+      <a href="assets/cv.pdf" download class="btn-cv reveal" data-delay="400" data-cursor="DOWNLOAD">
+        Download CV →
+      </a>
     </div>
   </section>
 
   <footer>
     <span>© 2025 Javier Echaide López — echa1dev</span>
-    <span>Built with HTML, CSS &amp; JS</span>
+    <a href="https://github.com/Echa1Dev" target="_blank" rel="noopener" data-cursor="VISIT">GitHub ↗</a>
   </footer>
 
   <script src="js/main.js" defer></script>

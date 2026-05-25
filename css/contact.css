@@ -1,103 +1,78 @@
 #contact {
-  padding-top: var(--space-xl);
-  padding-bottom: var(--space-xl);
-  min-height: 70vh;
+  padding-top: var(--sp-xl);
+  padding-bottom: var(--sp-xl);
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-.contact-label {
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--space-lg);
 }
 
 .contact-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  justify-content: space-between;
+  gap: var(--sp-lg);
 }
 
-.contact-heading {
-  font-size: clamp(3rem, 9vw, 9rem);
+.contact-title {
+  font-size: clamp(3.5rem, 9vw, 10rem);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.05em;
   line-height: 0.9;
-  display: flex;
-  flex-direction: column;
-}
-
-.contact-line {
-  display: block;
-}
-
-.contact-line:last-child {
-  color: transparent;
-  -webkit-text-stroke: 1px var(--fg);
 }
 
 .contact-links {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  max-width: 560px;
+  max-width: 580px;
 }
 
-.contact-link-row {
+.cl-row {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm) 0;
+  gap: var(--sp-sm);
   border-top: 1px solid var(--border);
-  transition: border-color 0.15s ease;
+  padding: var(--sp-sm) 0;
+  transition: border-color 0.2s;
 }
 
-.contact-link-row:last-child {
-  border-bottom: 1px solid var(--border);
-}
+.cl-row:last-child  { border-bottom: 1px solid var(--border); }
+.cl-row:hover       { border-top-color: var(--border-m); }
 
-.contact-link-row:hover {
-  border-top-color: var(--border-strong);
-}
-
-.contact-arrow {
+.cl-arrow {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.75rem;
-  color: var(--accent);
+  color: var(--ink-mid);
   flex-shrink: 0;
+  transition: transform 0.2s var(--ease);
 }
 
-.contact-link-info {
+.cl-row:hover .cl-arrow { transform: translateX(4px); }
+
+.cl-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.contact-link-label {
-  font-size: 0.625rem;
+.cl-lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.5625rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: rgba(237, 234, 217, 0.35);
-  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-soft);
 }
 
-.contact-link-val {
-  font-size: 0.875rem;
+.cl-val {
   font-family: 'Inter', sans-serif;
-  color: rgba(237, 234, 217, 0.65);
-  transition: color 0.15s ease;
+  font-size: 0.875rem;
+  color: rgba(13,13,13,0.55);
+  transition: color 0.15s;
   cursor: none;
 }
 
-.contact-link-row:hover .contact-link-val {
-  color: var(--fg);
-}
-
-.contact-cv {
-  margin-top: var(--space-sm);
-}
+.cl-row:hover .cl-val { color: var(--ink); }
 
 @media (max-width: 768px) {
   #contact { min-height: auto; }
