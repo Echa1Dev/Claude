@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWAKENING PROTOCOL — NEXUS-7</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-primary:   #00ffcc;
+      --color-secondary: #ff4444;
+      --color-accent:    #ffaa00;
+      --color-bg:        #020408;
+      --color-surface:   #0a1520;
+      --color-text:      #c8e8ff;
+      --font-mono:       'Courier New', 'Lucida Console', monospace;
+    }
+
+    html {
+      width: 100%;
+      background: var(--color-bg);
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-mono);
+      overflow-x: hidden;
+      overflow-y: scroll;   /* scroll siempre activo */
+      cursor: none;
+    }
+
+    /* Scrollable container — each section is 100vh */
+    #scroll-container {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Three.js canvas — fixed, always behind everything */
+    #webgl-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* UI layer — fixed HUD */
+    #ui-layer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Custom cursor */
+    #cursor {
+      position: fixed;
+      width: 20px; height: 20px;
+      border: 1px solid var(--color-primary);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, border-color 0.2s;
+      mix-blend-mode: screen;
+    }
+    #cursor::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 4px; height: 4px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+    #cursor.active {
+      width: 40px; height: 40px;
+      border-color: var(--color-accent);
+    }
+
+    /* Loading screen */
+    #loading-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--color-bg);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 24px;
+    }
+    #loading-screen .logo {
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      letter-spacing: 0.4em;
+      color: var(--color-primary);
+      text-shadow: 0 0 20px var(--color-primary);
+    }
+    #loading-bar-wrap {
+      width: 280px;
+      height: 2px;
+      background: rgba(0,255,204,0.15);
+      border: 1px solid rgba(0,255,204,0.3);
+    }
+    #loading-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--color-primary);
+      box-shadow: 0 0 12px var(--color-primary);
+      transition: width 0.1s linear;
+    }
+    #loading-text {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: rgba(0,255,204,0.6);
+      min-height: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div id="cursor"></div>
+
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="logo">NEXUS-7 / AWAKENING PROTOCOL</div>
+    <div id="loading-bar-wrap"><div id="loading-bar"></div></div>
+    <div id="loading-text">INITIALIZING CORE SYSTEMS...</div>
+  </div>
+
+  <!-- Fixed WebGL canvas -->
+  <canvas id="webgl-canvas"></canvas>
+
+  <!-- Fixed UI layer -->
+  <div id="ui-layer"></div>
+
+  <!-- Scrollable scene container -->
+  <div id="scroll-container"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
