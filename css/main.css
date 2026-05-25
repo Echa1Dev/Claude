@@ -46,6 +46,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   overflow-x: hidden;
+  padding-top: 0;
 }
 
 ::-webkit-scrollbar        { width: 2px; }
